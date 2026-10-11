@@ -16,6 +16,8 @@ export default function App() {
   const [cars, setCars] = useState(initialCars);
   const [search, setSearch] = useState("");
   const [brandInput, setBrandInput] = useState("");
+  const [modelInput, setModelInput] = useState("");
+  const [yearInput, setYearInput] = useState("");
 
   const deleteCar = (carToDelete) => {
     const newCars = cars.filter((car) => car.id !== carToDelete.id);
@@ -49,11 +51,23 @@ export default function App() {
           value={brandInput}
           onChange={(event) => setBrandInput(event.target.value)}
         />
+
+        <div>
+          <input
+            type="text"
+            value={modelInput}
+            onChange={(event) => setModelInput(event.target.value)}
+          />
+        </div>
+
         <button
           onClick={() => {
-            if (brandInput.trim() === "") return;
-            addCar({ id: Date.now(), brand: brandInput });
+            if (brandInput.trim() === "" || modelInput.trim() === "") {
+              return;
+            }
+            addCar({ id: Date.now(), brand: brandInput, model: modelInput });
             setBrandInput("");
+            setModelInput("");
           }}
         >
           Add
