@@ -20,18 +20,29 @@ export default function App() {
   const [yearInput, setYearInput] = useState("");
   const [sortBy, setSortBy] = useState("asc");
 
+  //usuwanie aut
   const deleteCar = (carToDelete) => {
     const newCars = cars.filter((car) => car.id !== carToDelete.id);
     setCars(newCars);
   };
 
+  //dodawanie aut
   const addCar = (carToAdd) => {
     setCars([...cars, carToAdd]);
   };
 
+  //wyszukiwanie po marce auta
   const filterCars = cars.filter((car) =>
     car.brand.toLowerCase().includes(search.toLowerCase()),
   );
+
+  const sortedCars = sortedCars.sort((a, b) => {
+    if (sortBy === "asc") {
+      return a.brand.localeCompare(b.brand);
+    } else {
+      return b.brand.localeCompare(a.brand);
+    }
+  });
 
   return (
     <div>
@@ -47,10 +58,7 @@ export default function App() {
       </div>
 
       <div>
-        <input />
-
         <select
-          type="text"
           value={sortBy}
           onChange={(event) => setSortBy(event.target.value)}
         >
@@ -65,7 +73,6 @@ export default function App() {
           value={brandInput}
           onChange={(event) => setBrandInput(event.target.value)}
         />
-
         <div>
           <input
             type="text"
@@ -73,6 +80,8 @@ export default function App() {
             onChange={(event) => setModelInput(event.target.value)}
           />
         </div>
+
+        {/* dodawanie aut */}
 
         <button
           onClick={() => {
