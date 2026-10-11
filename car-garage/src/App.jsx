@@ -19,6 +19,8 @@ export default function App() {
   const [modelInput, setModelInput] = useState("");
   const [yearInput, setYearInput] = useState("");
   const [sortBy, setSortBy] = useState("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const carPerPage = 5;
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -35,8 +37,7 @@ export default function App() {
   const filterCars = cars.filter((car) =>
     car.brand.toLowerCase().includes(search.toLowerCase()),
   );
-
-  const sortedCars = sortedCars.sort((a, b) => {
+  const sortedCars = filterCars.sort((a, b) => {
     if (sortBy === "asc") {
       return a.brand.localeCompare(b.brand);
     } else {
@@ -44,6 +45,10 @@ export default function App() {
     }
   });
 
+  const start = (currentPage - 1) * carPerPage;
+
+  const end = start + carPerPage;
+  const pageCars = sortedCars.slice(start, end);
   return (
     <div>
       <h1>My Car Garage</h1>
@@ -81,6 +86,14 @@ export default function App() {
           />
         </div>
 
+        <div>
+          <input
+            type="text"
+            value={yearInput}
+            onChange={(event) => setYearInput(event.target.value)}
+          />
+        </div>
+
         {/* dodawanie aut */}
 
         <button
@@ -88,9 +101,15 @@ export default function App() {
             if (brandInput.trim() === "" || modelInput.trim() === "") {
               return;
             }
-            addCar({ id: Date.now(), brand: brandInput, model: modelInput });
+            addCar({
+              id: Date.now(),
+              brand: brandInput,
+              model: modelInput,
+              year: yearInput,
+            });
             setBrandInput("");
             setModelInput("");
+            setYearInput("");
           }}
         >
           Add
@@ -98,7 +117,7 @@ export default function App() {
       </div>
 
       <ul>
-        {filterCars.map((car) => (
+        {pageCars.map((car) => (
           <li key={car.id}>
             {car.brand} {car.model} ({car.year}){" "}
             <button onClick={() => deleteCar(car)}>delete</button>
