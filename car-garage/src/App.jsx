@@ -124,6 +124,8 @@ export default function App() {
           </li>
         ))}
       </ul>
+      <button onClick={() => setCurrentPage(currentPage - 1)}>previous</button>
+      <button onClick={() => setCurrentPage(currentPage + 1)}>next</button>
     </div>
   );
 }
