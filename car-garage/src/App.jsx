@@ -18,6 +18,7 @@ export default function App() {
   const [brandInput, setBrandInput] = useState("");
   const [modelInput, setModelInput] = useState("");
   const [yearInput, setYearInput] = useState("");
+  const [sortBy, setSortBy] = useState("asc");
 
   const deleteCar = (carToDelete) => {
     const newCars = cars.filter((car) => car.id !== carToDelete.id);
@@ -43,6 +44,19 @@ export default function App() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
+      </div>
+
+      <div>
+        <input />
+
+        <select
+          type="text"
+          value={sortBy}
+          onChange={(event) => setSortBy(event.target.value)}
+        >
+          <option value="asc">A - Z</option>
+          <option value="desc">Z - A</option>
+        </select>
       </div>
 
       <div>
