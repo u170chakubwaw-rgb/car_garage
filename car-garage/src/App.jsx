@@ -14,28 +14,57 @@ const initialCars = [
 
 export default function App() {
   const [cars, setCars] = useState(initialCars);
-  
+  const [search, setSearch] = useState("");
+  const [brandInput, setBrandInput] = useState("");
 
   const deleteCar = (carToDelete) => {
     const newCars = cars.filter((car) => car.id !== carToDelete.id);
     setCars(newCars);
   };
 
+  const addCar = (carToAdd) => {
+    setCars([...cars, carToAdd]);
+  };
+
+  const filterCars = cars.filter((car) =>
+    car.brand.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <div>
       <h1>My Car Garage</h1>
-      
-      <input 
-        type="text" 
-        value={search} 
-        onChange={(event) => setSearch(event.target.value)} 
-      />
-      <p>{search}</p>
+
+      <div>
+        <label>Search</label>
+        <input
+          type="text"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+      </div>
+
+      <div>
+        <input
+          type="text"
+          value={brandInput}
+          onChange={(event) => setBrandInput(event.target.value)}
+        />
+        <button
+          onClick={() => {
+            if (brandInput.trim() === "") return;
+            addCar({ id: Date.now(), brand: brandInput });
+            setBrandInput("");
+          }}
+        >
+          Add
+        </button>
+      </div>
 
       <ul>
-        {cars.map((car) => (
+        {filterCars.map((car) => (
           <li key={car.id}>
-            {car.brand} <button onClick={() => deleteCar(car)}>delete</button>
+            {car.brand} {car.model} ({car.year}){" "}
+            <button onClick={() => deleteCar(car)}>delete</button>
           </li>
         ))}
       </ul>
