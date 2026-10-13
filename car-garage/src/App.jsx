@@ -41,13 +41,18 @@ export default function App() {
     if (sortBy === "asc") {
       return a.brand.localeCompare(b.brand);
     } else {
-      return b.brand.localeCompare(a.brand);
+      return b.brand.localeCompare(a.brand); //alfabetucznie porownoje marke 1 auta z 2
     }
   });
 
-  const start = (currentPage - 1) * carPerPage;
+  const filtercars = cars.filter((car) =>
+    car.brand.toLowerCase().includes(search.toLowerCase),
+  );
 
+  const start = (currentPage - 1) * carPerPage;
   const end = start + carPerPage;
+  const totalPages = Math.ceil(sortedCars.length / carPerPage);
+
   const pageCars = sortedCars.slice(start, end);
   return (
     <div>
@@ -124,8 +129,17 @@ export default function App() {
           </li>
         ))}
       </ul>
-      <button onClick={() => setCurrentPage(currentPage - 1)}>previous</button>
-      <button onClick={() => setCurrentPage(currentPage + 1)}>next</button>
+      <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}>
+        previous
+      </button>
+      <button
+        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+      >
+        next
+      </button>
+      <p>
+        strona {currentPage} z {totalPages}
+      </p>
     </div>
   );
 }
