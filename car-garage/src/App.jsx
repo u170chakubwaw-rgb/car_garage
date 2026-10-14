@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { use, useState } from "react";
 
 const initialCars = [
   { id: 1, brand: "Porsche", model: "911 Carrera", year: 2022 },
@@ -21,6 +21,7 @@ export default function App() {
   const [sortBy, setSortBy] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const carPerPage = 5;
+  const [yearFilter, setYearFilter] = useState("all");
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -34,14 +35,18 @@ export default function App() {
   };
 
   //wyszukiwanie po marce auta
-  const filterCars = cars.filter((car) =>
-    car.brand.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filterCars = cars.filter((car) => {
+    const matchesSearch = car.brand
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesYear = yearFilter === "all" || String(car.year) === yearFilter;
+    return matchesSearch && matchesYear;
+  });
   const sortedCars = filterCars.sort((a, b) => {
     if (sortBy === "asc") {
       return a.brand.localeCompare(b.brand);
     } else {
-      return b.brand.localeCompare(a.brand); //alfabetucznie porownoje marke 1 auta z 2
+      return b.brand.localeCompare(a.brand); //alfabetycznie porownoje marke 1 auta z 2
     }
   });
 
@@ -53,7 +58,6 @@ export default function App() {
   return (
     <div>
       <h1>My Car Garage</h1>
-
       <div>
         <label>Search</label>
         <input
@@ -65,7 +69,6 @@ export default function App() {
           }}
         />
       </div>
-
       <div>
         <select
           value={sortBy}
@@ -74,8 +77,19 @@ export default function App() {
           <option value="asc">A - Z</option>
           <option value="desc">Z - A</option>
         </select>
+        <select
+          value={yearFilter}
+          onChange={(event) => setYearFilter(event.target.value)}
+        >
+          <option value="all">Wszystkie lata</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
       </div>
-
       <div>
         <input
           type="text"
@@ -119,7 +133,6 @@ export default function App() {
           Add
         </button>
       </div>
-
       <ul>
         {pageCars.map((car) => (
           <li key={car.id}>
@@ -128,6 +141,7 @@ export default function App() {
           </li>
         ))}
       </ul>
+      {filterCars.length === 0 && <p>Brak wyników</p>}
       <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}>
         previous
       </button>
