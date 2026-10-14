@@ -45,10 +45,6 @@ export default function App() {
     }
   });
 
-  const filtercars = cars.filter((car) =>
-    car.brand.toLowerCase().includes(search.toLowerCase),
-  );
-
   const start = (currentPage - 1) * carPerPage;
   const end = start + carPerPage;
   const totalPages = Math.ceil(sortedCars.length / carPerPage);
@@ -63,7 +59,10 @@ export default function App() {
         <input
           type="text"
           value={search}
-          onChange={(event) => setSearch(event.target.value)}
+          onChange={(event) => {
+            setSearch(event.target.value);
+            setCurrentPage(1);
+          }}
         />
       </div>
 
