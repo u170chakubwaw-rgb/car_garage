@@ -23,6 +23,7 @@ export default function App() {
   const carPerPage = 5;
   const [yearFilter, setYearFilter] = useState("all");
   const [isForSale, setIsForSale] = useState(false);
+  const [gearbox, setGearbox] = useState("automatic");
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -139,12 +140,35 @@ export default function App() {
             setBrandInput("");
             setModelInput("");
             setYearInput("");
-            setCarForSale("false");
+            setIsForSale(false);
           }}
         >
           Add
         </button>
       </div>
+
+      <label>
+        <input
+          type="radio"
+          name="gearbox"
+          value="automatic"
+          checked={gearbox === "automatic"}
+          onChange={(event) => setGearbox(event.target.value)}
+        />
+        Automatyczna
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="gearbox"
+          value="manual"
+          checked={gearbox === "manual"}
+          onChange={(event) => setGearbox(event.target.value)}
+        />
+        Manualna
+      </label>
+
       <ul>
         {pageCars.map((car) => (
           <li key={car.id}>
