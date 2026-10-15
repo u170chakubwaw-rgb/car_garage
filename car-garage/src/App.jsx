@@ -1,4 +1,4 @@
-import { use, useState } from "react";
+import { useState } from "react";
 
 const initialCars = [
   { id: 1, brand: "Porsche", model: "911 Carrera", year: 2022 },
@@ -22,6 +22,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const carPerPage = 5;
   const [yearFilter, setYearFilter] = useState("all");
+  const [isForSale, setIsForSale] = useState(false);
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -30,6 +31,7 @@ export default function App() {
   };
 
   //dodawanie aut
+
   const addCar = (carToAdd) => {
     setCars([...cars, carToAdd]);
   };
@@ -113,6 +115,14 @@ export default function App() {
         </div>
 
         {/* dodawanie aut */}
+        <label>
+          <input
+            type="checkbox"
+            checked={isForSale}
+            onChange={(event) => setIsForSale(event.target.checked)}
+          />
+          Na sprzedaż
+        </label>
 
         <button
           onClick={() => {
@@ -124,10 +134,12 @@ export default function App() {
               brand: brandInput,
               model: modelInput,
               year: yearInput,
+              isForSale: isForSale,
             });
             setBrandInput("");
             setModelInput("");
             setYearInput("");
+            setCarForSale("false");
           }}
         >
           Add
@@ -136,7 +148,8 @@ export default function App() {
       <ul>
         {pageCars.map((car) => (
           <li key={car.id}>
-            {car.brand} {car.model} ({car.year}){" "}
+            {car.brand} {car.model} ({car.year})
+            {car.isForSale && <span> na sprzdaż</span>}
             <button onClick={() => deleteCar(car)}>delete</button>
           </li>
         ))}
