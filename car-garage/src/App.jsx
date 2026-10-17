@@ -24,6 +24,7 @@ export default function App() {
   const [yearFilter, setYearFilter] = useState("all");
   const [isForSale, setIsForSale] = useState(false);
   const [gearbox, setGearbox] = useState("Automatyczna");
+  const [fuel, setFuel] = useState("petrol");
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -137,12 +138,14 @@ export default function App() {
               year: yearInput,
               isForSale: isForSale,
               gearbox: gearbox,
+              fuel: fuel,
             });
             setBrandInput("");
             setModelInput("");
             setYearInput("");
             setIsForSale(false);
             setGearbox("Automatyczna");
+            setFuel("perol");
           }}
         >
           Add
@@ -170,11 +173,38 @@ export default function App() {
         />
         Manualna
       </label>
+      <br />
+      <label>
+        <input
+          type="radio"
+          name="fuel"
+          value={"petrol"}
+          checked={fuel === "petrol"}
+          onChange={(event) => setFuel(event.target.value)}
+        />
+        petrol
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="fuel"
+          value={"diesel"}
+          checked={fuel === "diesel"}
+          onChange={(event) => setFuel(event.target.value)}
+        />
+        diesel
+      </label>
 
       <ul>
         {pageCars.map((car) => (
           <li key={car.id}>
-            {car.brand} {car.model} ({car.year})<span> {car.gearbox} </span>
+            {car.brand} {car.model} ({car.year})
+            <span>
+              {" "}
+              {car.gearbox}
+              <span> {car.fuel}</span>
+            </span>
             {car.isForSale && <span> na sprzedaż</span>}
             <button onClick={() => deleteCar(car)}>delete</button>
           </li>
