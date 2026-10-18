@@ -8,7 +8,7 @@ const initialCars = [
   { id: 5, brand: "BMW", model: "M5 Competition", year: 2024 },
   { id: 6, brand: "Audi", model: "RS7", year: 2021 },
   { id: 7, brand: "McLaren", model: "720S", year: 2023 },
-  { id: 8, brand: "Tesla", model: "Roadster", year: 2025 },
+  { id: 8, brand: "Tesla", model: "Roadster", year: 2026 },
   { id: 9, brand: "Porsche", model: "Panamera", year: 2025 },
 ];
 
@@ -25,6 +25,7 @@ export default function App() {
   const [isForSale, setIsForSale] = useState(false);
   const [gearbox, setGearbox] = useState("Automatyczna");
   const [fuel, setFuel] = useState("petrol");
+  const [error, setError] = useState("");
 
   //usuwanie aut
   const deleteCar = (carToDelete) => {
@@ -126,9 +127,12 @@ export default function App() {
           Na sprzedaż
         </label>
 
+        {error !== "" && <p>{error}</p>}
+
         <button
           onClick={() => {
             if (brandInput.trim() === "" || modelInput.trim() === "") {
+              setError("Marka i model są wymagane");
               return;
             }
             addCar({
@@ -146,6 +150,7 @@ export default function App() {
             setIsForSale(false);
             setGearbox("Automatyczna");
             setFuel("petrol");
+            setError("");
           }}
         >
           Add
