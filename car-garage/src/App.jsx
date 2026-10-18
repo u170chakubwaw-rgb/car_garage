@@ -8,6 +8,7 @@ export default function App() {
   const [search, setSearch] = useState("");
   const [brandInput, setBrandInput] = useState("");
   const [modelInput, setModelInput] = useState("");
+
   const [yearInput, setYearInput] = useState("");
   const [sortBy, setSortBy] = useState("asc");
   const [currentPage, setCurrentPage] = useState(1);
