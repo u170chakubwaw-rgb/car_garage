@@ -135,6 +135,18 @@ export default function App() {
               setError("Marka i model są wymagane");
               return;
             }
+            if (yearInput.trim() === "") {
+              setError("Rok jest wymagany");
+              return;
+            }
+            if (
+              isNaN(Number(yearInput)) ||
+              Number(yearInput) < 1900 ||
+              Number(yearInput) > 2026
+            ) {
+              setError("Rok musi być liczbą od 1900 do 2026");
+              return;
+            }
             addCar({
               id: Date.now(),
               brand: brandInput,
