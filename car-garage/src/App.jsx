@@ -1,17 +1,7 @@
 import { useState } from "react";
+import initialCars from "./InitialCars";
 import Pagination from "./Pagination";
-
-const initialCars = [
-  { id: 1, brand: "Porsche", model: "911 Carrera", year: 2022 },
-  { id: 2, brand: "Ferrari", model: "812 Superfast", year: 2021 },
-  { id: 3, brand: "Mercedes", model: "AMG GT", year: 2023 },
-  { id: 4, brand: "Lamborghini", model: "Huracan STO", year: 2022 },
-  { id: 5, brand: "BMW", model: "M5 Competition", year: 2024 },
-  { id: 6, brand: "Audi", model: "RS7", year: 2021 },
-  { id: 7, brand: "McLaren", model: "720S", year: 2023 },
-  { id: 8, brand: "Tesla", model: "Roadster", year: 2026 },
-  { id: 9, brand: "Porsche", model: "Panamera", year: 2025 },
-];
+import "./App.css";
 
 export default function App() {
   const [cars, setCars] = useState(initialCars);
@@ -128,7 +118,7 @@ export default function App() {
           Na sprzedaż
         </label>
 
-        {error !== "" && <p>{error}</p>}
+        {error !== "" && <p className="error">{error}</p>}
 
         <button
           onClick={() => {
@@ -169,7 +159,6 @@ export default function App() {
           Add
         </button>
       </div>
-
       <label>
         <input
           type="radio"
@@ -180,7 +169,6 @@ export default function App() {
         />
         Automatyczna
       </label>
-
       <label>
         <input
           type="radio"
@@ -202,7 +190,6 @@ export default function App() {
         />
         petrol
       </label>
-
       <label>
         <input
           type="radio"
@@ -214,6 +201,16 @@ export default function App() {
         diesel
       </label>
 
+      <label>
+        <input
+          type="radio"
+          name="fuel"
+          value={"electric"}
+          checked={fuel === "electric"}
+          onChange={(event) => setFuel(event.target.value)}
+        />
+        electric
+      </label>
       <ul>
         {pageCars.map((car) => (
           <li key={car.id}>
