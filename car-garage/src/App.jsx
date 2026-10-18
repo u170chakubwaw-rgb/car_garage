@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Pagination from "./Pagination";
 
 const initialCars = [
   { id: 1, brand: "Porsche", model: "911 Carrera", year: 2022 },
@@ -228,17 +229,11 @@ export default function App() {
         ))}
       </ul>
       {filterCars.length === 0 && <p>Brak wyników</p>}
-      <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}>
-        previous
-      </button>
-      <button
-        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-      >
-        next
-      </button>
-      <p>
-        strona {currentPage} z {totalPages}
-      </p>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }
