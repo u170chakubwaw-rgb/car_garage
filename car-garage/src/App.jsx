@@ -145,7 +145,7 @@ export default function App() {
             setYearInput("");
             setIsForSale(false);
             setGearbox("Automatyczna");
-            setFuel("perol");
+            setFuel("petrol");
           }}
         >
           Add
