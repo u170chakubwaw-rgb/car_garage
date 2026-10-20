@@ -60,6 +60,7 @@ export default function App() {
         <input
           type="text"
           value={search}
+          placeholder="Wyszukaj"
           onChange={(event) => {
             setSearch(event.target.value);
             setCurrentPage(1);
