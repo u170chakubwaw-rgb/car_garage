@@ -91,12 +91,14 @@ export default function App() {
         <input
           type="text"
           value={brandInput}
+          placeholder="Marka"
           onChange={(event) => setBrandInput(event.target.value)}
         />
         <div>
           <input
             type="text"
             value={modelInput}
+            placeholder="Model"
             onChange={(event) => setModelInput(event.target.value)}
           />
         </div>
@@ -105,6 +107,7 @@ export default function App() {
           <input
             type="text"
             value={yearInput}
+            placeholder="Rok"
             onChange={(event) => setYearInput(event.target.value)}
           />
         </div>
